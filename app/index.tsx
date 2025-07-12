@@ -3,16 +3,31 @@ import { FlatList, Text, View } from 'react-native';
 import { CategoryBar } from '../features/logs/components/CategoryBar';
 import { LogHeader } from '../features/logs/components/LogHeader';
 import { LogItem } from '../features/logs/components/LogItem';
-import { useSortedLogs } from '../features/logs/hooks/useSortedLogs';
+import { useDateNavigation } from '../features/logs/hooks/useDateNavigation';
+import { useLogsByDate } from '../features/logs/hooks/useLogsByDate';
+
+export const options = {
+  headerShown: false,
+};
 
 export default function TimelineScreen() {
-  const logs = useSortedLogs();
+  const {
+    selectedDate,
+    goToPreviousDate,
+    goToNextDate,
+  } = useDateNavigation();
+
+  const logs = useLogsByDate(selectedDate);
 
   const today = new Date();
 
   return (
     <View style={{ flex: 1 }}>
-      <LogHeader date={today} />
+      <LogHeader
+      date={selectedDate}
+      onPrev={goToPreviousDate}
+      onNext={goToNextDate}
+    />
 
       <FlatList
         data={logs}
