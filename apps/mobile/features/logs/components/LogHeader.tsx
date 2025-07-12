@@ -13,9 +13,7 @@ export const LogHeader = ({ date, onPrev, onNext }: Props) => {
     <View
       style={{
         backgroundColor: '#f48ca5',
-        paddingTop: 16,
-        paddingBottom: 16,
-        paddingHorizontal: 16,
+        padding: 16,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
