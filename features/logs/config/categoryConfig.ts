@@ -1,5 +1,5 @@
 export type CategoryKey =
-  | 'breastfeeding'
+  | 'nursing'
   | 'formula'
   | 'sleep'
   | 'wake'
@@ -16,8 +16,8 @@ type CategoryInfo = {
 
 export const categories: CategoryInfo[] = [
   {
-    key: 'breastfeeding',
-    label: 'Breast',
+    key: 'nursing',
+    label: 'Nursing',
     emoji: '🤱',
     color: '#f4b4b4',
   },
