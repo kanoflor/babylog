@@ -18,6 +18,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["app", "src", "types", "store", "hooks", "utils"],
+  "include": ["app", "features", "lib", "stores", "hooks", "utils"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }
