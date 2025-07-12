@@ -15,27 +15,30 @@ export const LogItem = ({ entry }: Props) => {
     <View
       style={{
         flexDirection: 'row',
-        alignItems: 'center',
         paddingVertical: 12,
         paddingHorizontal: 16,
+        alignItems: 'center',
         borderBottomWidth: 1,
         borderColor: '#eee',
+        backgroundColor: 'white',
       }}
     >
-      {/* Time（HH:mm） */}
-      <Text style={{ fontSize: 16, width: 60 }}>
-        {format(entry.loggedAt, 'HH:mm')}
-      </Text>
+      {/* Left:Time */}
+      <View style={{ width: 64 }}>
+        <Text style={{ fontSize: 16, color: '#333' }}>
+          {format(new Date(entry.loggedAt), 'HH:mm')}
+        </Text>
+      </View>
 
-      {/* Emoji */}
-      <Text style={{ fontSize: 20, marginRight: 8 }}>
-        {category?.emoji ?? '❓'}
-      </Text>
-
-      {/* Category Name */}
-      <Text style={{ fontSize: 16, fontWeight: '500' }}>
-        {category?.label ?? entry.category}
-      </Text>
+      {/* Right: Emoji + Label */}
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ fontSize: 20, marginRight: 8 }}>
+          {category?.emoji ?? '❓'}
+        </Text>
+        <Text style={{ fontSize: 16, fontWeight: '500', color: '#333' }}>
+          {category?.label ?? entry.category}
+        </Text>
+      </View>
     </View>
   );
 };
