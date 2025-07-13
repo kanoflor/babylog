@@ -1,6 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
 import {
+  ActivityIndicator,
   Modal,
   Platform,
   Pressable,
@@ -16,6 +17,7 @@ type Props = {
   onConfirm: () => void;
   onCancel: () => void;
   title?: string;
+  isLoading?: boolean;
 };
 
 export const TimePickerModal = ({
@@ -25,9 +27,15 @@ export const TimePickerModal = ({
   onConfirm,
   onCancel,
   title,
+  isLoading = false,
 }: Props) => {
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onCancel}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onCancel}
+    >
       <Pressable
         style={{ flex: 1, justifyContent: 'flex-end' }}
         onPress={onCancel}
@@ -43,7 +51,14 @@ export const TimePickerModal = ({
             alignItems: 'center',
           }}
         >
-          <Text style={{ textAlign: 'center', marginBottom: 16, fontSize: 16 }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              marginBottom: 16,
+              fontSize: 16,
+              fontWeight: '600',
+            }}
+          >
             {title ?? 'Select time'}
           </Text>
 
@@ -61,17 +76,35 @@ export const TimePickerModal = ({
 
           <TouchableOpacity
             onPress={onConfirm}
+            disabled={isLoading}
             style={{
               marginTop: 24,
-              backgroundColor: '#f48ca5',
+              backgroundColor: isLoading ? '#ccc' : '#f48ca5',
               paddingVertical: 14,
               paddingHorizontal: 32,
               borderRadius: 8,
               width: '100%',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Text style={{ color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 16 }}>
-              OK
+            {isLoading ? (
+              <ActivityIndicator
+                color="white"
+                size="small"
+                style={{ marginRight: 8 }}
+              />
+            ) : null}
+            <Text
+              style={{
+                color: 'white',
+                textAlign: 'center',
+                fontWeight: '600',
+                fontSize: 16,
+              }}
+            >
+              {isLoading ? 'Saving...' : 'OK'}
             </Text>
           </TouchableOpacity>
         </Pressable>

@@ -1,8 +1,10 @@
 import { CategoryBar } from '@/features/logs/components/CategoryBar';
 import { LogHeader } from '@/features/logs/components/LogHeader';
 import { LogItem } from '@/features/logs/components/LogItem';
+import { TimePickerModal } from '@/features/logs/components/TimePickerModal';
 import { useDateNavigation } from '@/features/logs/hooks/useDateNavigation';
-import { useLogsByDate } from '@/features/logs/hooks/useLogsByDate';
+import { useLogs } from '@/features/logs/hooks/useLogs';
+import { useTimePickerModal } from '@/features/logs/hooks/useTimePickerModal';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,8 +15,8 @@ export const options = {
 
 export default function TimelineScreen() {
   const { selectedDate, goToPreviousDate, goToNextDate } = useDateNavigation();
-
-  const logs = useLogsByDate(selectedDate);
+  const { data: logs } = useLogs(selectedDate);
+  const timePickerModal = useTimePickerModal();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f48ca5' }}>
@@ -27,7 +29,9 @@ export default function TimelineScreen() {
         <FlatList
           data={logs}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <LogItem entry={item} />}
+          renderItem={({ item }) => (
+            <LogItem entry={item} onPress={timePickerModal.openForUpdate} />
+          )}
           ListEmptyComponent={
             <Text style={{ textAlign: 'center' }}>Empty Log</Text>
           }
@@ -42,8 +46,18 @@ export default function TimelineScreen() {
           right: 0,
         }}
       >
-        <CategoryBar />
+        <CategoryBar selectedDate={selectedDate} />
       </View>
+
+      <TimePickerModal
+        visible={timePickerModal.visible}
+        time={timePickerModal.selectedTime}
+        onChangeTime={timePickerModal.setSelectedTime}
+        onConfirm={timePickerModal.confirm}
+        onCancel={timePickerModal.close}
+        title={timePickerModal.getTitle()}
+        isLoading={timePickerModal.isLoading}
+      />
     </SafeAreaView>
   );
 }

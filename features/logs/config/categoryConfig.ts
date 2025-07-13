@@ -7,7 +7,7 @@ export type CategoryKey =
   | 'poop'
   | 'bath';
 
-type CategoryInfo = {
+export type CategoryInfo = {
   key: CategoryKey;
   label: string;
   emoji: string;
