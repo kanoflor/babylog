@@ -43,6 +43,7 @@ export default function LoginScreen() {
             keyboardType="email-address"
             placeholder="example@mail.com"
             placeholderTextColor="#8c7450"
+            autoCapitalize="none"
             onChangeText={setEmail}
           />
 
@@ -50,6 +51,7 @@ export default function LoginScreen() {
           <TextInput
             style={styles.input}
             secureTextEntry
+            autoCapitalize="none"
             placeholder="password"
             placeholderTextColor="#8c7450"
             onChangeText={setPassword}

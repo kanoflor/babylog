@@ -7,7 +7,7 @@ import { useTimePickerModal } from '../hooks/useTimePickerModal';
 import { TimePickerModal } from './TimePickerModal';
 
 export const CategoryBar = () => {
-  const addLog = useLogStore((s) => s.addLog);
+  const addLog = useLogStore(s => s.addLog);
 
   const {
     visible,
@@ -29,7 +29,7 @@ export const CategoryBar = () => {
     close();
   };
 
-  const selectedCategoryInfo = categories.find((c) => c.key === selectedCategory);
+  const selectedCategoryInfo = categories.find(c => c.key === selectedCategory);
   const title = selectedCategoryInfo
     ? `${selectedCategoryInfo.emoji} ${selectedCategoryInfo.label}`
     : '';
@@ -46,10 +46,16 @@ export const CategoryBar = () => {
         }}
         showsHorizontalScrollIndicator={false}
       >
-        {categories.map((category) => (
-          <TouchableOpacity key={category.key} onPress={() => open(category.key)} style={{ alignItems: 'center', marginHorizontal: 12 }}>
+        {categories.map(category => (
+          <TouchableOpacity
+            key={category.key}
+            onPress={() => open(category.key)}
+            style={{ alignItems: 'center', marginHorizontal: 12 }}
+          >
             <Text style={{ fontSize: 24 }}>{category.emoji}</Text>
-            <Text style={{ fontSize: 12, fontWeight: '600', marginTop: 4 }}>{category.label}</Text>
+            <Text style={{ fontSize: 12, fontWeight: '600', marginTop: 4 }}>
+              {category.label}
+            </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>

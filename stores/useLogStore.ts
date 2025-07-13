@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { createAsyncStorage } from './storage';
 
 export type LogEntry = {
   id: string;
@@ -22,16 +23,18 @@ export const useLogStore = create<LogState>()(
   persist(
     (set, get) => ({
       logs: [],
-      addLog: (log) =>
+      addLog: log =>
         set({
           logs: [
             ...get().logs,
             { ...log, id: Date.now().toString(), createdAt: Date.now() },
           ],
         }),
-      deleteLog: (id) =>
-        set({ logs: get().logs.filter((log) => log.id !== id) }),
+      deleteLog: id => set({ logs: get().logs.filter(log => log.id !== id) }),
     }),
-    { name: 'babylog-storage' }
+    {
+      name: 'babylog-storage',
+      storage: createAsyncStorage(),
+    }
   )
 );
