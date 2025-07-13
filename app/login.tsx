@@ -2,6 +2,7 @@ import { useLogin } from '@/features/auth/hooks/useLogin';
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
   Button,
   Image,
   Pressable,
@@ -54,11 +55,12 @@ export default function LoginScreen() {
             onChangeText={setPassword}
           />
 
-          <Button
-            title={isPending ? 'Loading' : 'Sign In'}
-            onPress={handleSubmit}
-            disabled={isPending}
-          />
+          {isPending ? (
+            <ActivityIndicator />
+          ) : (
+            <Button title="Sign In" onPress={handleSubmit} />
+          )}
+
           <Pressable onPress={() => router.push('/signup')}>
             <Text style={styles.link}>
               Don’t have an account?{' '}
