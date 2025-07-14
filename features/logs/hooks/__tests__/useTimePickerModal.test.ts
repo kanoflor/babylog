@@ -11,7 +11,7 @@ describe('useTimePickerModal utilities', () => {
       const result = combineDateAndTime(date, time);
 
       expect(result.getFullYear()).toBe(2024);
-      expect(result.getMonth()).toBe(0); // January
+      expect(result.getMonth()).toBe(0);
       expect(result.getDate()).toBe(15);
       expect(result.getHours()).toBe(14);
       expect(result.getMinutes()).toBe(30);
@@ -25,7 +25,7 @@ describe('useTimePickerModal utilities', () => {
       const result = combineDateAndTime(date, time);
 
       expect(result.getFullYear()).toBe(2024);
-      expect(result.getMonth()).toBe(11); // December
+      expect(result.getMonth()).toBe(11);
       expect(result.getDate()).toBe(25);
       expect(result.getHours()).toBe(9);
       expect(result.getMinutes()).toBe(15);
@@ -39,7 +39,7 @@ describe('useTimePickerModal utilities', () => {
       const result = combineDateAndTime(date, time);
 
       expect(result.getFullYear()).toBe(2024);
-      expect(result.getMonth()).toBe(1); // February
+      expect(result.getMonth()).toBe(1);
       expect(result.getDate()).toBe(29);
       expect(result.getHours()).toBe(23);
       expect(result.getMinutes()).toBe(59);
@@ -120,7 +120,6 @@ describe('useTimePickerModal utilities', () => {
   });
 
   describe('useTimePickerModal hook logic', () => {
-    // Mock the hooks
     const mockAddLogMutation = {
       mutate: jest.fn(),
       isPending: false,
@@ -134,11 +133,9 @@ describe('useTimePickerModal utilities', () => {
     beforeEach(() => {
       jest.clearAllMocks();
 
-      // Mock the hook dependencies
       jest.doMock('../useAddLog', () => ({
         useAddLog: () => mockAddLogMutation,
       }));
-
       jest.doMock('../useUpdateLog', () => ({
         useUpdateLog: () => mockUpdateLogMutation,
       }));
@@ -150,9 +147,6 @@ describe('useTimePickerModal utilities', () => {
     });
 
     it('should handle create mode logic correctly', () => {
-      const { useTimePickerModal } = require('../useTimePickerModal');
-
-      // Test the logic by simulating the hook's behavior
       const category: CategoryInfo = {
         key: 'nursing',
         label: 'Nursing',
@@ -169,7 +163,6 @@ describe('useTimePickerModal utilities', () => {
         loggedAt: combinedDateTime.getTime(),
       };
 
-      // This tests the business logic without needing to render the hook
       expect(expectedPayload.category).toBe('nursing');
       expect(expectedPayload.loggedAt).toBe(combinedDateTime.getTime());
     });
@@ -185,7 +178,6 @@ describe('useTimePickerModal utilities', () => {
 
       const selectedTime = new Date('2024-01-15T14:30:00');
 
-      // Simulate the confirm logic for update mode
       const expectedPayload = {
         logId: log.id,
         updates: { loggedAt: selectedTime.getTime() },
@@ -211,14 +203,12 @@ describe('useTimePickerModal utilities', () => {
         createdAt: Date.now(),
       };
 
-      // Test title logic
       expect(getModalTitle('create', null, category)).toBe('🍼 Formula');
       expect(getModalTitle('update', log, null)).toBe('Update log time');
       expect(getModalTitle('create', null, null)).toBe('Select time');
     });
 
     it('should handle edge case with null values', () => {
-      // Test that the functions handle null values gracefully
       expect(() => combineDateAndTime(new Date(), new Date())).not.toThrow();
       expect(() => getModalTitle('create', null, null)).not.toThrow();
     });
@@ -241,7 +231,6 @@ describe('useTimePickerModal utilities', () => {
     });
 
     it('should handle timezone edge cases', () => {
-      // Test with dates that might have timezone issues
       const date = new Date('2024-01-15T00:00:00.000Z');
       const time = new Date('2024-01-01T23:59:59.999Z');
 
@@ -249,7 +238,7 @@ describe('useTimePickerModal utilities', () => {
 
       // Should preserve the date components from the date parameter
       expect(result.getFullYear()).toBe(2024);
-      expect(result.getMonth()).toBe(0); // January
+      expect(result.getMonth()).toBe(0);
       expect(result.getDate()).toBe(15);
 
       // Should preserve the time components from the time parameter
