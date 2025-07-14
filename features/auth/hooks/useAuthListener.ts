@@ -10,19 +10,19 @@ export const useAuthListener = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true); // First loading flag
 
-  const login = useUserStore(s => s.login);
+  const loginWithFirebaseUser = useUserStore(s => s.loginWithFirebaseUser);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, firebaseUser => {
+    const unsub = onAuthStateChanged(auth, async firebaseUser => {
       setUser(firebaseUser);
       if (firebaseUser) {
-        login(firebaseUser.uid, firebaseUser.email ?? '');
+        await loginWithFirebaseUser(firebaseUser.uid, firebaseUser.email ?? '');
       }
       setLoading(false);
     });
 
     return () => unsub();
-  }, []);
+  }, [loginWithFirebaseUser]);
 
   return { user, loading };
 };

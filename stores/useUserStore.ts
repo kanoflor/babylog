@@ -9,8 +9,9 @@ import { createAsyncStorage } from './storage';
 type UserState = {
   uid: string | null;
   email: string | null;
-  login: (email: string, password: string) => void;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<void>;
+  loginWithFirebaseUser: (uid: string, email: string) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 const storage = createAsyncStorage();
@@ -23,6 +24,11 @@ export const useUserStore = create<UserState>()(
       login: async (email, password) => {
         const uid = await loginWithEmail({ email, password });
 
+        await storage.setItem('user-auth-store', { uid, email });
+
+        set({ uid, email });
+      },
+      loginWithFirebaseUser: async (uid: string, email: string) => {
         await storage.setItem('user-auth-store', { uid, email });
 
         set({ uid, email });

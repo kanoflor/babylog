@@ -19,10 +19,10 @@ export default function LoginScreen() {
 
   const login = useUserStore(s => s.login);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      login(email, password);
+      await login(email, password);
       router.replace('/');
     } catch (error) {
       console.error(error);
