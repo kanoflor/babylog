@@ -24,6 +24,10 @@ export default function LoginScreen() {
         onSuccess: () => {
           router.replace('/');
         },
+        onError: error => {
+          console.error(error);
+          // TODO: show error message to users
+        },
       }
     );
   };

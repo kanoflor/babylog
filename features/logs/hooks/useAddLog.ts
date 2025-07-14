@@ -1,7 +1,7 @@
-import type { LogEntry } from '@/stores/useLogStore';
 import { useUserStore } from '@/stores/useUserStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createLog } from '../api/createLog';
+import type { LogEntry } from '../types';
 
 export const useAddLog = () => {
   const queryClient = useQueryClient();

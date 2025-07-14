@@ -8,8 +8,8 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: loginWithEmail,
-    onSuccess: uid => {
-      login(uid);
+    onSuccess: (uid, { email }) => {
+      login(uid, email);
     },
     onError: (err: any) => {
       Alert.alert('Failed to login', err.message || 'Unknown error');

@@ -1,6 +1,6 @@
 import { db } from '@/lib/firebase';
-import { LogEntry } from '@/stores/useLogStore';
 import { addDoc, collection } from 'firebase/firestore';
+import { LogEntry } from '../types';
 
 export const createLog = async (
   log: Omit<LogEntry, 'id' | 'createdAt'>

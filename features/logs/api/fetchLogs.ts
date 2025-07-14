@@ -1,7 +1,7 @@
 import { db } from '@/lib/firebase';
-import { LogEntry } from '@/stores/useLogStore';
 import { endOfDay, startOfDay } from 'date-fns';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { LogEntry } from '../types';
 
 export const fetchLogs = async (
   uid: string,

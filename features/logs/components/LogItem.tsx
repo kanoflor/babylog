@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { LogEntry } from '../../../stores/useLogStore';
 import { categories } from '../config/categoryConfig';
+import { LogEntry } from '../types';
 
 type Props = {
   entry: LogEntry;

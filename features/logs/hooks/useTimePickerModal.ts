@@ -1,10 +1,34 @@
-import type { LogEntry } from '@/stores/useLogStore';
 import { useState } from 'react';
 import type { CategoryInfo } from '../config/categoryConfig';
+import type { LogEntry } from '../types';
 import { useAddLog } from './useAddLog';
 import { useUpdateLog } from './useUpdateLog';
 
 type TimePickerMode = 'create' | 'update';
+
+export const combineDateAndTime = (date: Date, time: Date): Date => {
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    time.getHours(),
+    time.getMinutes(),
+    time.getSeconds()
+  );
+};
+
+export const getModalTitle = (
+  mode: TimePickerMode,
+  selectedLog: LogEntry | null,
+  selectedCategory: CategoryInfo | null
+): string => {
+  if (mode === 'update' && selectedLog) {
+    return 'Update log time';
+  } else if (mode === 'create' && selectedCategory) {
+    return `${selectedCategory.emoji} ${selectedCategory.label}`;
+  }
+  return 'Select time';
+};
 
 export const useTimePickerModal = () => {
   const [visible, setVisible] = useState(false);
@@ -49,28 +73,17 @@ export const useTimePickerModal = () => {
         updates: { loggedAt: selectedTime.getTime() },
       });
     } else if (mode === 'create' && selectedCategory) {
+      const combinedDateTime = combineDateAndTime(selectedDate, selectedTime);
       addLogMutation.mutate({
         category: selectedCategory.key,
-        loggedAt: new Date(
-          selectedDate.getFullYear(),
-          selectedDate.getMonth(),
-          selectedDate.getDate(),
-          selectedTime.getHours(),
-          selectedTime.getMinutes(),
-          selectedTime.getSeconds()
-        ).getTime(),
+        loggedAt: combinedDateTime.getTime(),
       });
     }
     close();
   };
 
   const getTitle = () => {
-    if (mode === 'update' && selectedLog) {
-      return 'Update log time';
-    } else if (mode === 'create' && selectedCategory) {
-      return `${selectedCategory.emoji} ${selectedCategory.label}`;
-    }
-    return 'Select time';
+    return getModalTitle(mode, selectedLog, selectedCategory);
   };
 
   return {
