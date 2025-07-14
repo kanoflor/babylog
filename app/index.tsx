@@ -19,7 +19,7 @@ export default function TimelineScreen() {
   const timePickerModal = useTimePickerModal();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f48ca5' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f2cb94' }}>
       <LogHeader
         date={selectedDate}
         onPrev={goToPreviousDate}

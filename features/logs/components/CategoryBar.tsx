@@ -9,12 +9,12 @@ export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
   const timePickerModal = useTimePickerModal();
 
   return (
-    <SafeAreaView edges={['bottom']} style={{ backgroundColor: '#fcd2e2' }}>
+    <SafeAreaView edges={['bottom']} style={{ backgroundColor: '#f7e2c1' }}>
       <ScrollView
         horizontal
         style={{
           padding: 8,
-          backgroundColor: '#f9d3db',
+          backgroundColor: '#f7e2c1',
           borderTopWidth: 1,
           borderColor: '#ccc',
         }}

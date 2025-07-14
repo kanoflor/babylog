@@ -29,7 +29,7 @@ export const LogHeader = ({ date, onPrev, onNext }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f48ca5',
+    backgroundColor: '#f2cb94',
     paddingTop: 16,
     paddingBottom: 16,
     paddingHorizontal: 16,
@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   nav: {
-    color: 'white',
+    color: '#4a3227',
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   title: {
-    color: 'white',
+    color: '#4a3227',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
 });
