@@ -2,7 +2,7 @@ import { useUserStore } from '@/stores/useUserStore';
 import { Alert, Pressable, Text } from 'react-native';
 
 export function UserInfoButton() {
-  const email = useUserStore(s => s.email);
+  const user = useUserStore(s => s.user);
   const logout = useUserStore(s => s.logout);
 
   const handlePress = () => {
@@ -12,7 +12,7 @@ export function UserInfoButton() {
     ]);
   };
 
-  if (!email) return null;
+  if (!user) return null;
 
   return (
     <Pressable

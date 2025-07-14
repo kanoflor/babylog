@@ -5,14 +5,14 @@ import type { LogEntry } from '../types';
 
 export const useAddLog = () => {
   const queryClient = useQueryClient();
-  const uid = useUserStore(s => s.uid);
-  const author = 'father'; // TODO: ユーザー名を取得する
+  const user = useUserStore(s => s.user);
+  const author = 'mather'; // TODO: Replace with user name in the future
 
   return useMutation({
     mutationFn: (log: Omit<LogEntry, 'id' | 'createdAt' | 'uid' | 'author'>) =>
-      createLog({ ...log, author, uid: uid! }),
+      createLog({ ...log, author, uid: user.uid! }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['logs', uid] });
+      queryClient.invalidateQueries({ queryKey: ['logs', user.uid] });
     },
     onError: error => {
       throw error;

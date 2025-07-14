@@ -3,7 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchLogs } from '../api/fetchLogs';
 
 export const useLogs = (loggedAt?: Date | number) => {
-  const uid = useUserStore(s => s.uid);
+  const user = useUserStore(s => s.user);
+  const { uid } = user;
 
   return useQuery({
     queryKey: ['logs', uid, loggedAt ? new Date(loggedAt) : 'all'],

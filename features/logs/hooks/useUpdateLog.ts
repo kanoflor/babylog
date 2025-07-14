@@ -5,7 +5,7 @@ import type { LogEntry } from '../types';
 
 export const useUpdateLog = () => {
   const queryClient = useQueryClient();
-  const uid = useUserStore(s => s.uid);
+  const user = useUserStore(s => s.user);
 
   return useMutation({
     mutationFn: ({
@@ -16,7 +16,7 @@ export const useUpdateLog = () => {
       updates: Partial<LogEntry>;
     }) => updateLog(logId, updates),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['logs', uid] });
+      queryClient.invalidateQueries({ queryKey: ['logs', user.uid] });
     },
     onError: error => {
       throw error;
