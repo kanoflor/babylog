@@ -1,5 +1,5 @@
 import { db } from '@/lib/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { LogEntry } from '../types';
 
 export const createLog = async (
@@ -8,7 +8,7 @@ export const createLog = async (
   try {
     const ref = await addDoc(collection(db, 'logs'), {
       ...log,
-      createdAt: Date.now(),
+      createdAt: serverTimestamp(),
     });
     return ref.id;
   } catch (error) {

@@ -1,5 +1,5 @@
 import { useUserStore } from '@/stores/useUserStore';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { User as FirebaseUser, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { auth } from '../../../lib/firebase';
 
@@ -7,7 +7,7 @@ import { auth } from '../../../lib/firebase';
  * Check if the user is logged in or not.
  */
 export const useAuthListener = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
   const [loading, setLoading] = useState(true); // First loading flag
 
   const loginWithFirebaseUser = useUserStore(s => s.loginWithFirebaseUser);
