@@ -5,8 +5,8 @@ import { signUp } from '../api/signUp';
 export const useSignUp = () => {
   return useMutation({
     mutationFn: signUp,
-    onSuccess: ({ familyId }) => {
-      Alert.alert('Sign up successful', `familyId: ${familyId}`);
+    onSuccess: () => {
+      Alert.alert('Sign up successful');
     },
     onError: (err: any) => {
       Alert.alert('Failed to sign up', err.message ?? 'Unknown error');
