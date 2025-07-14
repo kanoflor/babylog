@@ -1,3 +1,5 @@
+import { ErrorMessage } from '@/features/auth/components/ErrorMessage';
+import { useAuthError } from '@/features/auth/hooks/useAuthError';
 import { useUserStore } from '@/stores/useUserStore';
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
@@ -16,17 +18,18 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { error, handleError, clearError } = useAuthError();
 
   const login = useUserStore(s => s.login);
 
   const handleSubmit = async () => {
+    clearError();
     setIsLoading(true);
     try {
       await login(email, password);
       router.replace('/');
     } catch (error) {
-      console.error(error);
-      // TODO: show error message to users
+      handleError(error);
     } finally {
       setIsLoading(false);
     }
@@ -41,6 +44,8 @@ export default function LoginScreen() {
           style={styles.logo}
         />
         <View style={styles.form}>
+          <ErrorMessage error={error} />
+
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.input}
@@ -69,7 +74,7 @@ export default function LoginScreen() {
 
           <Pressable onPress={() => router.push('/signup')}>
             <Text style={styles.link}>
-              Don’t have an account?{' '}
+              Don't have an account?{' '}
               <Text style={styles.linkBold}>Sign up</Text>
             </Text>
           </Pressable>

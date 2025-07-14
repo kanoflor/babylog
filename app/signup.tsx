@@ -1,8 +1,9 @@
+import { ErrorMessage } from '@/features/auth/components/ErrorMessage';
+import { useAuthError } from '@/features/auth/hooks/useAuthError';
 import { router, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Button,
   Image,
   Pressable,
@@ -16,20 +17,17 @@ import { useSignUp } from '../features/auth/hooks/useSignUp';
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
+  const { error, handleError, clearError } = useAuthError();
   const { mutate: signup, isPending } = useSignUp();
 
   const handleSubmit = () => {
-    if (!email || !pw) {
-      Alert.alert('Error', 'Please enter email and password');
-      return;
-    }
+    clearError();
 
     signup(
       { email, password: pw },
       {
-        onSuccess: () => {
-          router.push('/');
-        },
+        onSuccess: () => router.push('/'),
+        onError: error => handleError(error),
       }
     );
   };
@@ -45,6 +43,8 @@ export default function SignupScreen() {
         />
 
         <View style={styles.form}>
+          <ErrorMessage error={error} />
+
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.input}
@@ -74,7 +74,7 @@ export default function SignupScreen() {
           <Pressable onPress={() => router.push('/login')}>
             <Text style={styles.link}>
               Already have an account?{' '}
-              <Text style={styles.linkBold}>Log in</Text>
+              <Text style={styles.linkBold}>Sign in</Text>
             </Text>
           </Pressable>
         </View>
