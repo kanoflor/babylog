@@ -16,7 +16,6 @@ export const useAuthListener = () => {
     const unsub = onAuthStateChanged(auth, async firebaseUser => {
       setUser(firebaseUser);
       if (firebaseUser) {
-        console.log('firebaseUser', firebaseUser);
         await loginWithFirebaseUser(firebaseUser.uid, firebaseUser.email ?? '');
       }
       setLoading(false);
