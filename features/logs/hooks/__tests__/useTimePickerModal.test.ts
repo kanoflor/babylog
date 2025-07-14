@@ -231,8 +231,8 @@ describe('useTimePickerModal utilities', () => {
     });
 
     it('should handle timezone edge cases', () => {
-      const date = new Date('2024-01-15T00:00:00.000Z');
-      const time = new Date('2024-01-01T23:59:59.999Z');
+      const date = new Date('2024-01-15T00:00:00.000');
+      const time = new Date('2024-01-01T23:59:59.999');
 
       const result = combineDateAndTime(date, time);
 
