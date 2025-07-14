@@ -1,4 +1,4 @@
-import { useLogin } from '@/features/auth/hooks/useLogin';
+import { useUserStore } from '@/stores/useUserStore';
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -15,21 +15,21 @@ import {
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { mutate: login, isPending } = useLogin();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const login = useUserStore(s => s.login);
 
   const handleSubmit = () => {
-    login(
-      { email, password },
-      {
-        onSuccess: () => {
-          router.replace('/');
-        },
-        onError: error => {
-          console.error(error);
-          // TODO: show error message to users
-        },
-      }
-    );
+    setIsLoading(true);
+    try {
+      login(email, password);
+      router.replace('/');
+    } catch (error) {
+      console.error(error);
+      // TODO: show error message to users
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,7 +61,7 @@ export default function LoginScreen() {
             onChangeText={setPassword}
           />
 
-          {isPending ? (
+          {isLoading ? (
             <ActivityIndicator />
           ) : (
             <Button title="Sign In" onPress={handleSubmit} />

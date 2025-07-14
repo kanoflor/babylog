@@ -1,3 +1,4 @@
+import { loginWithEmail } from '@/features/auth/api/login';
 import { router } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import { create } from 'zustand';
@@ -8,7 +9,7 @@ import { createAsyncStorage } from './storage';
 type UserState = {
   uid: string | null;
   email: string | null;
-  login: (uid: string, email: string) => void;
+  login: (email: string, password: string) => void;
   logout: () => void;
 };
 
@@ -19,7 +20,13 @@ export const useUserStore = create<UserState>()(
     set => ({
       uid: null,
       email: null,
-      login: (uid, email) => set({ uid, email }),
+      login: async (email, password) => {
+        const uid = await loginWithEmail({ email, password });
+
+        await storage.setItem('user-auth-store', { uid, email });
+
+        set({ uid, email });
+      },
       logout: async () => {
         set({ uid: null, email: null });
 
