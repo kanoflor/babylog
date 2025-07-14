@@ -1,5 +1,4 @@
 import { loginWithEmail } from '@/features/auth/api/login';
-import { router } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -39,8 +38,6 @@ export const useUserStore = create<UserState>()(
 
         // Clear Zustand store
         await storage.removeItem('user-auth-store');
-
-        router.replace('/login');
       },
     }),
     {

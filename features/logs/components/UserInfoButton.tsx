@@ -1,4 +1,5 @@
 import { useUserStore } from '@/stores/useUserStore';
+import { router } from 'expo-router';
 import { Alert, Pressable, Text } from 'react-native';
 
 export function UserInfoButton() {
@@ -8,7 +9,14 @@ export function UserInfoButton() {
   const handlePress = () => {
     Alert.alert('Log out', 'Do you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Log out', style: 'destructive', onPress: () => logout() },
+      {
+        text: 'Log out',
+        style: 'destructive',
+        onPress: () => {
+          logout();
+          router.replace('/login');
+        },
+      },
     ]);
   };
 
