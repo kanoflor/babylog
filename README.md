@@ -15,9 +15,20 @@ babylog/
 ├── 🧩 Feature Modules (Domain-driven)
 │ ├── auth/
 │ └── logs/
+│    ├── api/
+│    ├── components/
+│    ├── config/
+│    └── hooks/
 │
 ├── 🗄️ State Management
 │ └── stores/
 │
 └── 🔥 Third-party Integration
-└── lib/
+  └── lib/
+
+**Key Technologies:**
+- **Expo Router**: Navigation
+- **React Query**: Server state management
+- **Zustand**: Local state management
+- **Firebase**: Authentication + Firestore real-time database
+- **AsyncStorage**: Persistent local storage
