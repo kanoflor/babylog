@@ -26,7 +26,7 @@ type Props = {
   onUpdateFormData?: (data: Partial<LogData>) => void;
 };
 
-export const TimePickerModal = ({
+export const LogModal = ({
   visible,
   time,
   onChangeTime,

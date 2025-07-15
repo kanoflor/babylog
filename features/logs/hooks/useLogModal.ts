@@ -18,9 +18,18 @@ export const useLogModal = () => {
   const addLogMutation = useAddLog();
   const updateLogMutation = useUpdateLog();
 
+  const getCurrentCategory = () => {
+    if (modalStore.mode === 'create' && modalStore.selectedCategory) {
+      return modalStore.selectedCategory.key;
+    } else if (modalStore.mode === 'update' && modalStore.selectedLog) {
+      return modalStore.selectedLog.category;
+    }
+    return undefined;
+  };
+
   const getTitle = () => {
     if (modalStore.mode === 'update' && modalStore.selectedLog) {
-      return 'Update log time';
+      return 'Update log';
     } else if (modalStore.mode === 'create' && modalStore.selectedCategory) {
       return `${modalStore.selectedCategory.emoji} ${modalStore.selectedCategory.label}`;
     }
@@ -55,6 +64,7 @@ export const useLogModal = () => {
 
   return {
     ...modalStore,
+    getCurrentCategory,
     confirm,
     getTitle,
     isLoading,

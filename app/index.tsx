@@ -1,10 +1,10 @@
 import { CategoryBar } from '@/features/logs/components/CategoryBar';
 import { LogHeader } from '@/features/logs/components/LogHeader';
 import { LogItem } from '@/features/logs/components/LogItem';
-import { TimePickerModal } from '@/features/logs/components/TimePickerModal';
+import { LogModal } from '@/features/logs/components/TimePickerModal';
 import { useDateNavigation } from '@/features/logs/hooks/useDateNavigation';
+import { useLogModal } from '@/features/logs/hooks/useLogModal';
 import { useLogs } from '@/features/logs/hooks/useLogs';
-import { useTimePickerModal } from '@/features/logs/hooks/useTimePickerModal';
 import React from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,7 +16,7 @@ export const options = {
 export default function TimelineScreen() {
   const { selectedDate, goToPreviousDate, goToNextDate } = useDateNavigation();
   const { data: logs, isLoading } = useLogs(selectedDate);
-  const timePickerModal = useTimePickerModal();
+  const logModal = useLogModal();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f2cb94' }}>
@@ -35,7 +35,7 @@ export default function TimelineScreen() {
             data={logs}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <LogItem entry={item} onPress={timePickerModal.openForUpdate} />
+              <LogItem entry={item} onPress={logModal.openForUpdate} />
             )}
             ListEmptyComponent={
               <View
@@ -75,14 +75,17 @@ export default function TimelineScreen() {
         <CategoryBar selectedDate={selectedDate} />
       </View>
 
-      <TimePickerModal
-        visible={timePickerModal.visible}
-        time={timePickerModal.selectedTime}
-        onChangeTime={timePickerModal.setSelectedTime}
-        onConfirm={timePickerModal.confirm}
-        onCancel={timePickerModal.close}
-        title={timePickerModal.getTitle()}
-        isLoading={timePickerModal.isLoading}
+      <LogModal
+        visible={logModal.visible}
+        time={logModal.selectedTime}
+        onChangeTime={logModal.setSelectedTime}
+        onConfirm={logModal.confirm}
+        onCancel={logModal.close}
+        title={logModal.getTitle()}
+        isLoading={logModal.isLoading}
+        category={logModal.getCurrentCategory()}
+        formData={logModal.formData}
+        onUpdateFormData={logModal.updateFormData}
       />
     </SafeAreaView>
   );

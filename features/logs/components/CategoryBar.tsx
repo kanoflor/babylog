@@ -3,7 +3,6 @@ import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { categories } from '../config/categoryConfig';
 import { useLogModal } from '../hooks/useLogModal';
-import { TimePickerModal } from './TimePickerModal';
 
 export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
   const logModal = useLogModal();
@@ -33,19 +32,6 @@ export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-
-      <TimePickerModal
-        visible={logModal.visible}
-        time={logModal.selectedTime}
-        onChangeTime={logModal.setSelectedTime}
-        onConfirm={logModal.confirm}
-        onCancel={logModal.close}
-        title={logModal.getTitle()}
-        isLoading={logModal.isLoading}
-        category={logModal.selectedCategory?.key}
-        formData={logModal.formData}
-        onUpdateFormData={logModal.updateFormData}
-      />
     </SafeAreaView>
   );
 };
