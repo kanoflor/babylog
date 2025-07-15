@@ -1,7 +1,7 @@
 import { useUserStore } from '@/stores/useUserStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateLog } from '../api/updateLog';
-import type { LogEntry } from '../types';
+import type { LogData } from '../types';
 
 export const useUpdateLog = () => {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ export const useUpdateLog = () => {
       updates,
     }: {
       logId: string;
-      updates: Partial<LogEntry>;
+      updates: { loggedAt?: number; data?: LogData; memo?: string };
     }) => updateLog(logId, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['logs', user.uid] });

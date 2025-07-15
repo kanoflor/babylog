@@ -2,11 +2,11 @@ import React from 'react';
 import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { categories } from '../config/categoryConfig';
-import { useTimePickerModal } from '../hooks/useTimePickerModal';
+import { useLogModal } from '../hooks/useLogModal';
 import { TimePickerModal } from './TimePickerModal';
 
 export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
-  const timePickerModal = useTimePickerModal();
+  const logModal = useLogModal();
 
   return (
     <SafeAreaView edges={['bottom']} style={{ backgroundColor: '#f7e2c1' }}>
@@ -23,9 +23,7 @@ export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
         {categories.map(category => (
           <TouchableOpacity
             key={category.key}
-            onPress={() =>
-              timePickerModal.openForCreate(category, selectedDate)
-            }
+            onPress={() => logModal.openForCreate(category, selectedDate)}
             style={{ alignItems: 'center', marginHorizontal: 12 }}
           >
             <Text style={{ fontSize: 24 }}>{category.emoji}</Text>
@@ -37,13 +35,16 @@ export const CategoryBar = ({ selectedDate }: { selectedDate: Date }) => {
       </ScrollView>
 
       <TimePickerModal
-        visible={timePickerModal.visible}
-        time={timePickerModal.selectedTime}
-        onChangeTime={timePickerModal.setSelectedTime}
-        onConfirm={timePickerModal.confirm}
-        onCancel={timePickerModal.close}
-        title={timePickerModal.getTitle()}
-        isLoading={timePickerModal.isLoading}
+        visible={logModal.visible}
+        time={logModal.selectedTime}
+        onChangeTime={logModal.setSelectedTime}
+        onConfirm={logModal.confirm}
+        onCancel={logModal.close}
+        title={logModal.getTitle()}
+        isLoading={logModal.isLoading}
+        category={logModal.selectedCategory?.key}
+        formData={logModal.formData}
+        onUpdateFormData={logModal.updateFormData}
       />
     </SafeAreaView>
   );

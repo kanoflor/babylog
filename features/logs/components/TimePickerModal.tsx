@@ -9,6 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import type { CategoryKey } from '../config/categoryConfig';
+import type { LogData } from '../types';
+import { CategoryForms } from './CategoryForms';
 
 type Props = {
   visible: boolean;
@@ -18,6 +21,9 @@ type Props = {
   onCancel: () => void;
   title?: string;
   isLoading?: boolean;
+  category?: CategoryKey;
+  formData?: LogData;
+  onUpdateFormData?: (data: Partial<LogData>) => void;
 };
 
 export const TimePickerModal = ({
@@ -28,6 +34,9 @@ export const TimePickerModal = ({
   onCancel,
   title,
   isLoading = false,
+  category,
+  formData = {},
+  onUpdateFormData,
 }: Props) => {
   return (
     <Modal
@@ -73,6 +82,16 @@ export const TimePickerModal = ({
               style={{ width: 320 }}
             />
           </View>
+
+          {category && onUpdateFormData && (
+            <View style={{ width: '100%' }}>
+              <CategoryForms
+                category={category}
+                formData={formData}
+                onUpdateFormData={onUpdateFormData}
+              />
+            </View>
+          )}
 
           <TouchableOpacity
             onPress={onConfirm}
