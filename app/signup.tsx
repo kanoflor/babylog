@@ -16,7 +16,7 @@ import { useSignUp } from '../features/auth/hooks/useSignUp';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
-  const [pw, setPw] = useState('');
+  const [password, setPassword] = useState('');
   const { error, handleError, clearError } = useAuthError();
   const { mutate: signup, isPending } = useSignUp();
 
@@ -24,7 +24,7 @@ export default function SignupScreen() {
     clearError();
 
     signup(
-      { email, password: pw },
+      { email, password },
       {
         onSuccess: () => router.push('/'),
         onError: error => handleError(error),
@@ -62,7 +62,7 @@ export default function SignupScreen() {
             placeholder="password"
             placeholderTextColor="#8c7450"
             autoCapitalize="none"
-            onChangeText={setPw}
+            onChangeText={setPassword}
           />
 
           {isPending ? (
