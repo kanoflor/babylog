@@ -6,7 +6,13 @@ import { useDateNavigation } from '@/features/logs/hooks/useDateNavigation';
 import { useLogModal } from '@/features/logs/hooks/useLogModal';
 import { useLogs } from '@/features/logs/hooks/useLogs';
 import React from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const options = {
@@ -19,15 +25,15 @@ export default function TimelineScreen() {
   const logModal = useLogModal();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f2cb94' }}>
+    <SafeAreaView style={styles.container}>
       <LogHeader
         date={selectedDate}
         onPrev={goToPreviousDate}
         onNext={goToNextDate}
       />
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.content}>
         {isLoading ? (
-          <View style={{ flex: 1, paddingVertical: 64 }}>
+          <View style={styles.loadingContainer}>
             <ActivityIndicator />
           </View>
         ) : (
@@ -38,24 +44,10 @@ export default function TimelineScreen() {
               <LogItem entry={item} onPress={logModal.openForUpdate} />
             )}
             ListEmptyComponent={
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingHorizontal: 32,
-                  paddingVertical: 64,
-                }}
-              >
-                <Text style={{ fontSize: 48, marginBottom: 16 }}>📭</Text>
-                <Text
-                  style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 8 }}
-                >
-                  No logs yet
-                </Text>
-                <Text
-                  style={{ fontSize: 14, textAlign: 'center', color: '#888' }}
-                >
+              <View style={styles.emptyContainer}>
+                <Text style={styles.emptyIcon}>📭</Text>
+                <Text style={styles.emptyTitle}>No logs yet</Text>
+                <Text style={styles.emptyDescription}>
                   Tap the categories below to add your first log!
                 </Text>
               </View>
@@ -64,14 +56,7 @@ export default function TimelineScreen() {
         )}
       </View>
 
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-      >
+      <View style={styles.categoryBarContainer}>
         <CategoryBar selectedDate={selectedDate} />
       </View>
 
@@ -90,3 +75,45 @@ export default function TimelineScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f2cb94',
+  },
+  content: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  loadingContainer: {
+    flex: 1,
+    paddingVertical: 64,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+    paddingVertical: 64,
+  },
+  emptyIcon: {
+    fontSize: 48,
+    marginBottom: 16,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  emptyDescription: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#888',
+  },
+  categoryBarContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+});

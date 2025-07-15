@@ -1,6 +1,6 @@
 import { useUserStore } from '@/stores/useUserStore';
 import { router } from 'expo-router';
-import { Alert, Pressable, Text } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text } from 'react-native';
 
 export function UserInfoButton() {
   const user = useUserStore(s => s.user);
@@ -23,14 +23,19 @@ export function UserInfoButton() {
   if (!user) return null;
 
   return (
-    <Pressable
-      onPress={handlePress}
-      style={{
-        paddingLeft: 12,
-        paddingVertical: 4,
-      }}
-    >
-      <Text style={{ fontSize: 18, color: 'white' }}>👤</Text>
+    <Pressable onPress={handlePress} style={styles.button}>
+      <Text style={styles.text}>👤</Text>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    paddingLeft: 12,
+    paddingVertical: 4,
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
+  },
+});
