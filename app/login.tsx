@@ -53,6 +53,7 @@ export default function LoginScreen() {
             placeholder="example@mail.com"
             placeholderTextColor="#8c7450"
             autoCapitalize="none"
+            value={email}
             onChangeText={setEmail}
           />
 
@@ -63,6 +64,7 @@ export default function LoginScreen() {
             autoCapitalize="none"
             placeholder="password"
             placeholderTextColor="#8c7450"
+            value={password}
             onChangeText={setPassword}
           />
 

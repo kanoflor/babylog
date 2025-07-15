@@ -52,6 +52,7 @@ export default function SignupScreen() {
             placeholder="example@mail.com"
             placeholderTextColor="#8c7450"
             autoCapitalize="none"
+            value={email}
             onChangeText={setEmail}
           />
 
@@ -62,6 +63,7 @@ export default function SignupScreen() {
             placeholder="password"
             placeholderTextColor="#8c7450"
             autoCapitalize="none"
+            value={password}
             onChangeText={setPassword}
           />
 
