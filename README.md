@@ -48,14 +48,33 @@ npm start
 yarn start
 ```
 
-3. **Firebase Setup**
-   
+3. **Environment Variables Setup**
+
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   ```
+
+4. **Firebase Setup**
+
    This app uses Firebase for authentication and Firestore database. You'll need to:
-   
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
    - Enable Authentication (Email/Password provider)
    - Create a Firestore database
-   - Add your Firebase configuration to the project (check `lib/firebase.ts`)
+   - Get your Firebase configuration:
+     1. Go to Project Settings > General tab
+     2. Scroll down to "Your apps" section
+     3. Select your web app or create one
+     4. Copy the Firebase configuration values
+   - Update your `.env` file with your Firebase configuration values:
+     ```
+     FIREBASE_API_KEY=your_actual_api_key
+     FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+     FIREBASE_PROJECT_ID=your-project-id
+     FIREBASE_STORAGE_BUCKET=your-project-id.firebasestorage.app
+     FIREBASE_MESSAGING_SENDER_ID=your_actual_sender_id
+     FIREBASE_APP_ID=your_actual_app_id
+     ```
 
 ### Alternative Run Commands
 
@@ -68,7 +87,6 @@ npm run ios
 ```
 
 ---
-
 
 **Key Technologies:**
 
