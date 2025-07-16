@@ -48,6 +48,15 @@ npm start
 yarn start
 ```
 
+3. **Firebase Setup**
+   
+   This app uses Firebase for authentication and Firestore database. You'll need to:
+   
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Enable Authentication (Email/Password provider)
+   - Create a Firestore database
+   - Add your Firebase configuration to the project (check `lib/firebase.ts`)
+
 ### Alternative Run Commands
 
 ```bash
