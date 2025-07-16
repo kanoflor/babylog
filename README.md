@@ -38,14 +38,6 @@ For mobile development:
    yarn install
    ```
 
-3. **Firebase Setup**
-
-   This app uses Firebase for authentication and Firestore database. You'll need to:
-   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password provider)
-   - Create a Firestore database
-   - Add your Firebase configuration to the project (check `lib/firebase.ts`)
-
 ### Running the App
 
 Start the development server:
@@ -56,13 +48,6 @@ npm start
 yarn start
 ```
 
-This will open the Expo Developer Tools in your browser. From there you can:
-
-- **📱 Run on mobile device**: Scan the QR code with Expo Go app
-- **🤖 Run on Android emulator**: Press `a`
-- **📱 Run on iOS simulator**: Press `i` (macOS only)
-- **🌐 Run on web**: Press `w`
-
 ### Alternative Run Commands
 
 ```bash
@@ -71,15 +56,6 @@ npm run android
 
 # Run directly on iOS (macOS only)
 npm run ios
-
-# Run on web
-npm run web
-
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
 ```
 
 ---
